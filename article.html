@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статья - Стоматологическая клиника</title>
+    <?php $version = time(); ?>
+    <link rel="stylesheet" href="styles.css?v=<?php echo $version; ?>">
+</head>
+<body>
+    <header>
+        <h1>Статья</h1>
+        <nav>
+            <ul>
+              
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="articles.html">Статьи</a></li>
+                <li><a href="kabinet.html">Кабинет</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="article-section">
+            <h2 id="article-title"></h2>
+            <p id="article-author"></p>
+            <img id="article-image" alt="Изображение статьи" class="article-image">
+            <p id="article-content"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Свяжитесь с нами: 123-456-7890 | email@example.com</p>
+        <p>&copy; 2024 Стоматологическая клиника. Все права защищены.</p>
+    </footer>
+
+    <script src="scripts.js?v=<?php echo $version; ?>"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const articleId = params.get('id');
+
+            if (articleId) {
+                loadArticle(articleId);
+            } else {
+                console.error('Не указан идентификатор статьи');
+            }
+        });
+
+        function loadArticle(id) {
+            fetch(`articles.php?action=view&id=${id}`)
+            .then(response => response.json())
+            .then(article => {
+                if (article.status && article.status === 'error') {
+                    console.error(article.message);
+                } else {
+                    document.getElementById('article-title').textContent = article.title;
+                    document.getElementById('article-author').textContent = `Автор: ${article.author} - ${new Date(article.created_at).toLocaleDateString()}`;
+                    document.getElementById('article-image').src = `${article.image_path}?v=<?php echo $version; ?>`;
+                    document.getElementById('article-content').textContent = article.content;
+                }
+            })
+            .catch(error => console.error('Ошибка загрузки статьи:', error));
+        }
+
+        function logout() {
+            fetch('logout.php', {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+    </script><div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+    <div class="floating-teeth"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="scripts.js?v=<?= time(); ?>"></script>
+    <script>
+        $(document).ready(function(){
+            $('.slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 3000,
+                prevArrow: null, // Remove the previous button
+                nextArrow: null // Remove the next button
+            });
+        });
+
+        function logout() {
+            fetch('logout.php', {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const userLoggedIn = false; // Эта переменная должна быть установлена сервером или сессией
+            const isAdmin = false; // Эта переменная должна быть установлена сервером или сессией
+
+            if (userLoggedIn) {
+                document.getElementById('dashboardLink').style.display = 'block';
+                document.getElementById('authLink').style.display = 'none';
+                document.getElementById('logoutLink').style.display = 'block';
+            }
+
+            if (isAdmin) {
+                document.getElementById('adminLink').style.display = 'block';
+            }
+        });
+    </script>
+    <script>
+        function setupFloatingTeeth() {
+            const teethContainer = document.querySelector('.floating-teeth');
+            const teethImages = ['tooth1.png', 'tooth2.png', 'tooth3.png'];
+
+            /*for (let i = 0; i < 20; i++) {
+                const img = document.createElement('img');
+                img.src = `images/${teethImages[Math.floor(Math.random() * teethImages.length)]}`;
+                img.className = 'tooth';
+                img.style.left = `${Math.random() * 100}%`;
+                img.style.top = `${Math.random() * 100}%`;
+                img.style.width = `${Math.random() * 20 + 20}px`;
+                img.style.height = img.style.width;
+                img.style.position = 'absolute';
+                img.style.zIndex = '-1';
+                teethContainer.appendChild(img);
+            }
+
+            document.addEventListener('mousemove', function(e) {
+                const teeth = document.querySelectorAll('.floating-teeth .tooth');
+                teeth.forEach(tooth => {
+                    const speed = Math.random() * 5 + 1; // Random speed for each tooth
+                    const x = (window.innerWidth - e.pageX * speed) / 100;
+                    const y = (window.innerHeight - e.pageY * speed) / 100;
+                    tooth.style.transform = `translateX(${x}px) translateY(${y}px)`;
+                });
+            });*/
+        }
+
+        document.addEventListener('DOMContentLoaded', setupFloatingTeeth);
+    </script>
+</body>
+</html>

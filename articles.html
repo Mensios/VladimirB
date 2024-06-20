@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статьи - Стоматологическая клиника</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Наши статьи</h1>
+        <nav>
+            <ul>
+                
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="articles.html">Статьи</a></li>
+                <li><a href="kabinet.html">Кабинет</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="articles fade-in-up">
+            <h2>Наши статьи</h2>
+            <ul id="articles-list">
+                <div class="article-item">
+                
+                    <div class="article-content">
+                        <a href="stats.html"><img src="images/article1.jpg" alt="Article Image"></a>
+                        <h3>Здоровье полости рта и его влияние на общее здоровье</h3>
+                        <p class="article-author">Доктор Иванов</p>
+                        <p class="article-description">Полость рта является важной частью общего здоровья. Узнайте, как состояние зубов и десен может влиять на другие аспекты вашего здоровья.</p>
+                    </div>
+                    <div class="article-content">
+                        <a href="stats2.html"><img src="images/article2.jpg" alt="Article Image"></a>
+                        <h3>Современные методы лечения кариеса</h3>
+                        <p class="article-author">Доктор Сидоров</p>
+                        <p class="article-description">Современная стоматология предлагает множество методов лечения кариеса. Узнайте о наиболее эффективных и безопасных методах.</p>
+                    </div>
+                </div>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Свяжитесь с нами: 123-456-7890 | email@example.com</p>
+        <p>&copy; 2024 Стоматологическая клиника. Все права защищены.</p>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+    <div class="floating-teeth"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="scripts.js?v=<?= time(); ?>"></script>
+    <script>
+        function logout() {
+            fetch('logout.php', {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const userLoggedIn = false; // Эта переменная должна быть установлена сервером или сессией
+            const isAdmin = false; // Эта переменная должна быть установлена сервером или сессией
+
+            if (userLoggedIn) {
+                document.getElementById('dashboardLink').style.display = 'block';
+                document.getElementById('authLink').style.display = 'none';
+                document.getElementById('logoutLink').style.display = 'block';
+            }
+
+            if (isAdmin) {
+                document.getElementById('adminLink').style.display = 'block';
+            }
+        });
+
+        function setupFloatingTeeth() {
+            const teethContainer = document.querySelector('.floating-teeth');
+            const teethImages = ['tooth1.png', 'tooth2.png', 'tooth3.png'];
+
+            /*for (let i = 0; i < 20; i++) {
+                const img = document.createElement('img');
+                img.src = `images/${teethImages[Math.floor(Math.random() * teethImages.length)]}`;
+                img.className = 'tooth';
+                img.style.left = `${Math.random() * 100}%`;
+                img.style.top = `${Math.random() * 100}%`;
+                img.style.width = `${Math.random() * 20 + 20}px`;
+                img.style.height = img.style.width;
+                img.style.position = 'absolute';
+                img.style.zIndex = '-1';
+                teethContainer.appendChild(img);
+            }
+
+            document.addEventListener('mousemove', function(e) {
+                const teeth = document.querySelectorAll('.floating-teeth .tooth');
+                teeth.forEach(tooth => {
+                    const speed = Math.random() * 5 + 1; // Random speed for each tooth
+                    const x = (window.innerWidth - e.pageX * speed) / 100;
+                    const y = (window.innerHeight - e.pageY * speed) / 100;
+                    tooth.style.transform = `translateX(${x}px) translateY(${y}px)`;
+                });
+            });*/
+        }
+
+        document.addEventListener('DOMContentLoaded', setupFloatingTeeth);
+    </script>
+</body>
+</html>
