@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Вход</h1>
+        <nav>
+            <ul>
+                <li><a href="register.html">Регистрация</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="auth-forms">
+            <div>
+                <h2>Вход</h2>
+                <form id="loginForm">
+                    <label for="loginLogin">Логин:</label>
+                    <input type="text" id="loginLogin" name="login" required>
+                    <label for="loginPassword">Пароль:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                    <label for="loginRemember">Запомнить меня</label>
+                    <input type="checkbox" id="loginRemember" name="remember">
+                    <button type="submit">Войти</button>
+                    <p id="loginMessage"></p>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Свяжитесь с нами: 123-456-7890 | email@example.com</p>
+        <p>&copy; 2024 Стоматологическая клиника. Все права защищены.</p>
+    </footer>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const login = document.getElementById('loginLogin').value;
+            const password = document.getElementById('loginPassword').value;
+            const loginMessage = document.getElementById('loginMessage');
+    
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+            const user = users.find(user => user.login === login && user.password === password);
+    
+            if (user) {
+                loginMessage.style.color = 'green';
+                loginMessage.textContent = 'Вход успешен';
+    
+                const userData = {
+                    login: user.login,
+                    name: user.name,
+                    avatar: user.avatar
+                };
+    
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+    
+                setTimeout(() => {
+                    window.location.href = 'kabinet.html';
+                }, 2000);
+            } else {
+                loginMessage.style.color = 'red';
+                loginMessage.textContent = 'Неправильный логин или пароль';
+            }
+        });
+    </script>
+    
+</body>
+</html>

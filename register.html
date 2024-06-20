@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Регистрация</h1>
+        <nav>
+            <ul>
+                <li><a href="login.html">Вход</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="auth-forms">
+            <div>
+                <h2>Регистрация</h2>
+                <form id="registerForm">
+                    <label for="registerLogin">Логин:</label>
+                    <input type="text" id="registerLogin" name="login" required>
+                    <label for="registerPassword">Пароль:</label>
+                    <input type="password" id="registerPassword" name="password" required>
+                    <label for="registerConfirmPassword">Подтвердите пароль:</label>
+                    <input type="password" id="registerConfirmPassword" name="confirm_password" required>
+                    <label for="registerName">Имя:</label>
+                    <input type="text" id="registerName" name="name" required>
+                    <button type="submit" id="registerButton">Зарегистрироваться</button>
+                    <p id="registerMessage"></p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Свяжитесь с нами: 123-456-7890 | email@example.com</p>
+        <p>&copy; 2024 Стоматологическая клиника. Все права защищены.</p>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const login = document.getElementById('registerLogin').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            const name = document.getElementById('registerName').value;
+            const registerMessage = document.getElementById('registerMessage');
+
+            if (password !== confirmPassword) {
+                registerMessage.style.color = 'red';
+                registerMessage.textContent = 'Пароли не совпадают';
+                return;
+            }
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            const existingUser = users.find(user => user.login === login);
+            if (existingUser) {
+                registerMessage.style.color = 'red';
+                registerMessage.textContent = 'Пользователь с таким логином уже существует';
+                return;
+            }
+
+            const newUser = {
+                login: login,
+                password: password,
+                name: name,
+                avatar: 'default-avatar.png'
+            };
+            users.push(newUser);
+
+            localStorage.setItem('users', JSON.stringify(users));
+
+            registerMessage.style.color = 'green';
+            registerMessage.textContent = 'Регистрация успешна';
+
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

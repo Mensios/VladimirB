@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - Стоматологическая клиника</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Личный кабинет</h1>
+        <nav>
+            <ul>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="articles.html">Статьи</a></li>
+                <li><a href="login.html">Выход</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="profile" class="fade-in-up">
+            <h2>Профиль пользователя</h2>
+            <div class="profile-info">
+                <img src="images/default-avatar.png" alt="Фото пользователя" class="profile-photo" id="profilePhoto">
+                <div class="profile-details">
+                    <p><strong>Имя:</strong> <span id="userName"></span></p>
+                    <p><strong>Логин:</strong> <span id="profileLogin"></span></p>
+                    <p><strong>Телефон:</strong> +7 (123) 456-78-90</p>
+                </div>
+            </div>
+            <form id="avatarForm">
+                <label for="avatarInput">Изменить аватар:</label>
+                <input type="file" id="avatarInput" name="avatar" accept="image/*">
+                <button type="submit" class="appointment-btn">Сохранить аватар</button>
+            </form>
+        </section>
+    
+        <section id="appointments" class="fade-in-up">
+            <h2>Мои записи</h2>
+            <div class="appointment-list" id="appointmentList">
+                <!-- Записи будут добавлены здесь через JavaScript -->
+            </div>
+        </section>
+
+        <section id="settings" class="fade-in-up">
+            <h2>Настройки</h2>
+            <form class="settings-form">
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" value="+7">
+                <button type="submit" class="appointment-btn">Сохранить изменения</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Свяжитесь с нами: 123-456-7890 | email@example.com</p>
+        <p>&copy; 2024 Стоматологическая клиника. Все права защищены.</p>
+    </footer>
+    
+    <script src="scripts.js?v=<?= time(); ?>"></script>
+    <script>
+
+        function showModal(message) {
+            const modal = document.getElementById('modal');
+            const modalMessage = document.getElementById('modal-message');
+            modalMessage.textContent = message;
+            modal.style.display = 'block';
+    
+            const closeModal = document.querySelector('.close');
+            closeModal.onclick = function () {
+                modal.style.display = 'none';
+            }
+    
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        }
+    </script>
+    
+    
+</body>
+</html>

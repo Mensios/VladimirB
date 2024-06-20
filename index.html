@@ -1,0 +1,115 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стоматологическая клиника</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в нашу стоматологическую клинику</h1>
+        <nav>
+            <ul>
+                <li><a href="login.html">Вход</a></li>
+                <li><a href="register.html">Регистрация</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="slider">
+            <div><img src="images/clinic.jpg" alt="Стоматологическая клиника" class="slider-image"></div>
+        </section>
+
+        <section class="hero fade-in-up">
+            <h2>Добро пожаловать в нашу стоматологическую клинику</h2>
+            <p>Ваша улыбка - наш приоритет. Мы предлагаем широкий спектр стоматологических услуг, чтобы удовлетворить ваши потребности.</p>
+            <a href="register.html"><button class="appointment-btn">Записаться на прием</button></a>
+        </section>
+
+        <section class="testimonials fade-in-up">
+            <h2>Наша команда</h2>
+            <div class="testimonial">
+                <img src="images/IMG_3281_1x.jpg" alt="Пациент 1">
+                <h3>ЖАМСУЕВ 
+                    ЗОРИГТО ЦЫРЕНОВИЧ</h3>
+                <p>ЗУБНОЙ ТЕХНИК</p>
+            </div>
+            <div class="testimonial">
+                <img src="images/IMG_3286_1x.jpg" alt="Пациент 2">
+                <h3>КУПРИЯНОВА
+                    ЕЛИЗАВЕТА ДМИТРИЕВНА</h3>
+                <p>АДМИНИСТРАТОР</p>
+            </div>
+        </section>
+
+        <section class="team">
+            <h2></h2>
+            <div class="team-member">
+                <img src="images/IMG_3290_1x.jpg" alt="Доктор Джон Доу">
+                <h3>ЖАМСУЕВА
+                    ЖАРГАЛМА ЦЫДЕНЖАПОВНА</h3>
+                <p>СТОМАТОЛОГ-ОРТОПЕД</p>
+            </div>
+            <div class="team-member">
+                <img src="images/IMG_3297_1x.jpg" alt="Доктор Джейн Смит">
+                <h3>САВИНА 
+                    АНТОНИНА НИКОЛАЕВНА</h3>
+                <p>СТОМАТОЛОГ-ТЕРАПЕВТ</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Свяжитесь с нами: 123-456-7890 | email@example.com</p>
+        <p>&copy; 2024 Стоматологическая клиника. Все права защищены.</p>
+    </footer>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+    <div class="floating-teeth"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="scripts.js?v=<?= time(); ?>"></script>
+    <script>
+        function logout() {
+            fetch('logout.php', {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const userLoggedIn = false; // Эта переменная должна быть установлена сервером или сессией
+            const isAdmin = false; // Эта переменная должна быть установлена сервером или сессией
+
+            if (userLoggedIn) {
+                document.getElementById('dashboardLink').style.display = 'block';
+                document.getElementById('authLink').style.display = 'none';
+                document.getElementById('logoutLink').style.display = 'block';
+            }
+
+            if (isAdmin) {
+                document.getElementById('adminLink').style.display = 'block';
+            }
+        });
+    </script>
+    <script>
+        function setupFloatingTeeth() {
+            const teethContainer = document.querySelector('.floating-teeth');
+            const teethImages = ['tooth1.png', 'tooth2.png', 'tooth3.png'];
+            // Добавьте логику для плавающих зубов здесь
+        }
+
+        document.addEventListener('DOMContentLoaded', setupFloatingTeeth);
+    </script>
+</body>
+</html>
